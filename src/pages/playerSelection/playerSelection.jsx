@@ -12,11 +12,11 @@ class PlayerSelection extends React.Component {
   render() {
     return (
       <div>
-        <Grid container spacing={10}>
-          <Grid item xs={12}>
-            <h1>Each team choose a player for the round!</h1>
+        <Grid container>
+          <Grid xs={12}>
+            <h1 >Each team choose a player for the round!</h1>
           </Grid>
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <Link to='/game'><Button variant="contained">Let's Play!</Button></Link>
           </Grid>
         </Grid>
