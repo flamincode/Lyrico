@@ -10,10 +10,13 @@ class ScoringFooter extends React.Component {
   }
   
   render() {
+    console.log('Footer')
+    console.log(this.props.teams)
+    const {teamOne, teamTwo} = this.props.teams
     return (
       <div className='scoring-footer-container'>
-        <div>{`${this.props.nameOne ? this.props.nameOne : 'Team One'}: 0`}</div>
-        <div>{`${this.props.nameTwo ? this.props.nameTwo : 'Team Two'}: 0`}</div>
+        <div>{`${teamOne} : 0`}</div>
+        <div>{`${teamTwo}: 0`}</div>
       </div>
     )
   }
@@ -26,4 +29,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(ScoringFooter);
+export default ScoringFooter;

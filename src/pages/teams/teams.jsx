@@ -4,98 +4,57 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom'
 
-import { connect } from 'react-redux'
-
-import {
-  nameTeamOne,
-  nameTeamTwo,
-} from "../../redux/teams/teams.actions"
-
-
 class TeamsPage extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      teamOne: {
-        // name: null,
-        score: 0,
-        open: true
-      },
-      teamTwo: {
-        // name: null,
-        score: 0,
-        open: false
-      }
+    this.state= {
+      teamOneShow: true,
+      teamTwoShow: false
     }
-
-    this.handleChangeTeamOne = this.handleChangeTeamOne.bind(this)
-    this.handleChangeTeamTwo = this.handleChangeTeamTwo.bind(this)
     this.handleSubmitTeamOne = this.handleSubmitTeamOne.bind(this)
     this.handleSubmitTeamTwo = this.handleSubmitTeamTwo.bind(this)
-  }
-
-  handleChangeTeamOne(e) {
-    this.props.nameTeamOne(e.target.value)
-    // this.setState(prevState => ({
-    //   teamOne: {
-    //     ...prevState.teamOne,
-    //     name: e.target.value
-    //   }
-    // }))
-  }
-
-  handleChangeTeamTwo(e) {
-    this.props.nameTeamTwo(e.target.value)
-    // this.setState(prevState => ({
-    //   teamTwo: {
-    //     ...prevState.teamTwo,
-    //     name: e.target.value
-    //   }
-    // }))
+    this.handleChangeTeamOne = this.handleChangeTeamOne.bind(this)
+    this.handleChangeTeamTwo = this.handleChangeTeamTwo.bind(this)
   }
 
   handleSubmitTeamOne(e) {
-    this.setState(prevState => ({
-      teamOne: {
-        ...prevState.teamOne,
-        open: false
-      },
-      teamTwo: {
-        ...prevState.teamTwo,
-        open: true
-      }
-    }))
-    //Save team name one
+    this.setState({
+      teamOneShow: !this.state.teamOneShow,
+      teamTwoShow: !this.state.teamTw
+    })
     e.preventDefault()
   }
 
   handleSubmitTeamTwo(e) {
+    this.setState({
+      teamOneShow: !this.state.teamOneShow,
+      teamTwoShow: !this.state.teamTw
+    })
     e.preventDefault()
-    this.setState(prevState => ({
-      teamOne: {
-        ...prevState.teamOne,
-        open: false,
-      },
-      teamTwo: {
-        ...prevState.teamTwo,
-        open: false,
-        // name: e.target.value
-      }
-    }))
+  }
+
+  handleChangeTeamOne(e) {
+    this.props.handleChangeTeamOne(e)
+  }
+
+  handleChangeTeamTwo(e) {
+    this.props.handleChangeTeamTwo(e)
   }
 
   render() {
+    console.log('Team page')
+    console.log(this.props.teams)
+    const {teamOne, teamTwo} = this.props.teams
     return (
       <div>
-        <div className={!this.state.teamOne.open ? 'hide' : ''}>
-          <form onSubmit={this.handleSubmitTeamOne}>
+        <div className={!this.state.teamOneShow ? 'hide' : ''}>
+          <form onSubmit={(e) => this.handleSubmitTeamOne(e)}>
             <Grid container spacing={10}>
               <Grid item xs={12}>
                 <h1>Team One please enter your name</h1>
               </Grid>
                 <Grid item xs={12}>
-                  <TextField id="standard-basic" value={this.props.nameOne} onChange={this.handleChangeTeamOne} label="Team One" />
+                  <TextField id="standard-basic" value={this.props.teamOne} label="Team One" onChange={(e) => this.handleChangeTeamOne(e)}/>
                 </Grid>
                 <Grid item xs={12}>
                   <Button variant="contained" type="submit">Submit</Button>
@@ -103,14 +62,14 @@ class TeamsPage extends React.Component {
             </Grid>
           </form>
         </div>
-        <div className={!this.state.teamTwo.open ? 'hide' : ''}>
-          <form onSubmit={this.handleSubmitTeamTwo}>
+        <div className={!this.state.teamTwoShow ? 'hide' : ''}>
+          <form onSubmit={(e) => this.handleSubmitTeamTwo(e)}>
             <Grid container spacing={10}>
               <Grid item xs={12}>
                 <h1>Team Two please enter your name</h1>
               </Grid>
                 <Grid item xs={12}>
-                  <TextField id="standard-basic" value={this.props.nameTwo} onChange={this.handleChangeTeamTwo} label="Team Two" />
+                  <TextField id="standard-basic" value={this.props.nameTwo} label="Team Two" onChange={(e) => this.handleChangeTeamTwo(e)}/>
                 </Grid>
                 <Grid item xs={12}>
                   <Link to="/PlayerSelection"><Button variant="contained" type="submit">Submit</Button></Link>
@@ -123,18 +82,5 @@ class TeamsPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    nameOne: state.nameOne,
-    nameTwo: state.nameTwo
-  }
-}
 
-const mapDispatchToProps = dispatch => {
-  return {
-    nameTeamOne: (nameOne) => dispatch(nameTeamOne()),
-    nameTeamTwo: () => dispatch(nameTeamTwo()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TeamsPage)
+export default TeamsPage
