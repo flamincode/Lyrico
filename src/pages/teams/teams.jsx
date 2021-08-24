@@ -20,7 +20,7 @@ class TeamsPage extends React.Component {
   handleSubmitTeamOne(e) {
     this.setState({
       teamOneShow: !this.state.teamOneShow,
-      teamTwoShow: !this.state.teamTw
+      teamTwoShow: !this.state.teamTwoShow
     })
     e.preventDefault()
   }
@@ -28,7 +28,7 @@ class TeamsPage extends React.Component {
   handleSubmitTeamTwo(e) {
     this.setState({
       teamOneShow: !this.state.teamOneShow,
-      teamTwoShow: !this.state.teamTw
+      teamTwoShow: !this.state.teamTwoShow
     })
     e.preventDefault()
   }
@@ -42,8 +42,6 @@ class TeamsPage extends React.Component {
   }
 
   render() {
-    console.log('Team page')
-    console.log(this.props.teams)
     const {teamOne, teamTwo} = this.props.teams
     return (
       <div>
@@ -54,7 +52,7 @@ class TeamsPage extends React.Component {
                 <h1>Team One please enter your name</h1>
               </Grid>
                 <Grid item xs={12}>
-                  <TextField id="standard-basic" value={this.props.teamOne} label="Team One" onChange={(e) => this.handleChangeTeamOne(e)}/>
+                  <TextField id="standard-basic" value={teamOne} label="Team One" onChange={(e) => this.handleChangeTeamOne(e)}/>
                 </Grid>
                 <Grid item xs={12}>
                   <Button variant="contained" type="submit">Submit</Button>
@@ -69,7 +67,7 @@ class TeamsPage extends React.Component {
                 <h1>Team Two please enter your name</h1>
               </Grid>
                 <Grid item xs={12}>
-                  <TextField id="standard-basic" value={this.props.nameTwo} label="Team Two" onChange={(e) => this.handleChangeTeamTwo(e)}/>
+                  <TextField id="standard-basic" value={teamTwo} label="Team Two" onChange={(e) => this.handleChangeTeamTwo(e)}/>
                 </Grid>
                 <Grid item xs={12}>
                   <Link to="/PlayerSelection"><Button variant="contained" type="submit">Submit</Button></Link>

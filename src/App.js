@@ -13,11 +13,17 @@ class App extends React.Component {
     this.state = {
       teams: {
         teamOne: 'Team One',
-        teamTwo: 'Team Two'
+        teamTwo: 'Team Two',
+        teamTwoActive: true,
+        teamTwoActive: false,
+        teamOneScore: 0,
+        teamTwoScore: 0
       }
     }
+
     this.handleChangeTeamOne = this.handleChangeTeamOne.bind(this)
     this.handleChangeTeamTwo = this.handleChangeTeamTwo.bind(this)
+    this.addScore = this.addScore.bind(this)
   }
 
   handleChangeTeamOne(e) {
@@ -40,6 +46,15 @@ class App extends React.Component {
     }))
     e.preventDefault()
   }
+
+  addScore() {
+    let {teamOneActive, teamTwoActive, teamOneScore, teamTwoScore} = this.state
+    if (teamOneActive) {
+      //addscore to 1
+    } else {
+      //addScore tp 2
+    }
+  }
   
   render() {
     const teams = this.state.teams
@@ -55,7 +70,14 @@ class App extends React.Component {
             )}>
           </Route>
           <Route exact path='/playerSelection' component={PlayerSelectionPage}></Route>
-          <Route exact path='/game' component={GamePage}></Route>
+          <Route exact path='/game'
+            render={(props) => (
+              <GamePage teams={teams}
+                addScore={this.addScore} 
+                history={props.history}/>
+            )}>
+          </Route>
+
         </Switch>
         <ScoringFooter teams={teams}/>
       </div>
