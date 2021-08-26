@@ -55,7 +55,7 @@ class TeamsPage extends React.Component {
                   <TextField id="standard-basic" value={teamOne} label="Team One" onChange={(e) => this.handleChangeTeamOne(e)}/>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button variant="contained" type="submit">Submit</Button>
+                  <Button variant="contained" type="submit" className={'lyrico-button'}>Submit</Button>
                 </Grid>
             </Grid>
           </form>
@@ -70,7 +70,7 @@ class TeamsPage extends React.Component {
                   <TextField id="standard-basic" value={teamTwo} label="Team Two" onChange={(e) => this.handleChangeTeamTwo(e)}/>
                 </Grid>
                 <Grid item xs={12}>
-                  <Link to="/PlayerSelection"><Button variant="contained" type="submit">Submit</Button></Link>
+                  <Link to="/PlayerSelection"><Button variant="contained" type="submit" className={'lyrico-button'}>Create Team</Button></Link>
                 </Grid>
             </Grid>
           </form>

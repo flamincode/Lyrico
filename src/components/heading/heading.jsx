@@ -1,10 +1,16 @@
 import React from 'react'
+import { useHistory } from "react-router-dom";
+import './heading.scss'
+import image from '../../logo.png'
 
-class Heading extends React.Component {
+const Heading = () => {
+  const history = useHistory()
 
-  render() {
-    return <h1>{this.props.text}</h1>
+  const handleClick = () => {
+    history.push('/')
   }
+  return (
+    <button className={'logo'} onClick={handleClick}><img src={image}/></button>
+  )
 }
-
 export default Heading

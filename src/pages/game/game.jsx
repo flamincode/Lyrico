@@ -19,17 +19,17 @@ class GamePage extends React.Component {
       lyric: '',
       secondsLeft: 0,
       timerShow: false,
-      buttonText: 'Start!',
+      positiveButtonText: 'Start Time!',
+      negativeButtonText: 'New Song',
       gameStep: 0,
-      modalOpen: false
     }
     this.timer = 0
     this.startTimer = this.startTimer.bind(this)
     this.countDown = this.countDown.bind(this)
     this.generateSong = this.generateSong.bind(this)
     this.mainClick = this.mainClick.bind(this)
-    this.modalClose = this.modalClose.bind(this)
     this.endRound = this.endRound.bind(this)
+    this.secondaryClick = this.secondaryClick.bind(this)
   }
 
   componentDidMount() {
@@ -56,6 +56,7 @@ class GamePage extends React.Component {
 
     if (seconds == 0) {
       clearInterval(this.timer)
+      this.endRound(0)
     }
   }
 
@@ -64,56 +65,54 @@ class GamePage extends React.Component {
       case 0:
         this.setState({
           gameStep: 1,
-          buttonText: 'They Got It!'
+          positiveButtonText: 'They Got It!',
+          negativeButtonText: 'Skip'
         })
         this.startTimer()
         break
       case 1:
         this.setState({
           gameStep: 0,
-          modalOpen: true,
         })
         clearInterval(this.timer)
+        this.endRound(2)
         break
     }
   }
 
-  modalClose() {
-    this.setState({modalOpen: false})
+  secondaryClick() {
+    switch(this.state.gameStep) {
+      case 0:
+        this.generateSong()
+        break
+      case 1:
+        this.setState({
+          gameStep: 0,
+        })
+        clearInterval(this.timer)
+        this.endRound(0)
+        break
+    }
   }
 
-  endRound() {
+  endRound(n) {
     this.props.history.push('/PlayerSelection')
-    this.props.addScore()
+    this.props.addScore(n)
   }
 
   render() {
-    let {artist, song, seconds, year, number, lyric, timerShow, secondsLeft, buttonText, modalOpen} = this.state
+    let {artist, song, seconds, year, number, lyric, timerShow, secondsLeft, positiveButtonText, negativeButtonText, modalOpen} = this.state
     return (
       <div>
         {/* <div>{this.generateSong()}</div> */}
         <div className='song-container'>
-          <h1 className='item artist'>{artist}</h1>
           <h1 className='item song'>{song}</h1>
-          <h2 className='item year'>{year}</h2>
-          <h4 className='item seconds'>{`${seconds} seconds`}</h4>
-          <h1 className='item lyric'>{lyric}</h1>
+          <h2 className='item side artist'>{`by ${artist}, ${year}`}</h2>
+          <h1 className='item lyric'>{`"${lyric}"`}</h1>
         </div>
-        <Button variant="contained" onClick={this.mainClick} size='large'>{buttonText}</Button>
-        <div className={`item counter ${!timerShow ? 'hide' : ''}`}>{`:${secondsLeft}`}</div>
-        <Modal
-          className={'winning-modal'}
-          open={modalOpen}
-          onClose={this.modalClose}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description">
-            {<div>
-              <h1>{`Did they get it?`}</h1>
-              <Button  variant="contained" onClick={this.modalClose}>No</Button>
-              <Button  variant="contained" onClick={this.endRound}>Yes!</Button>
-            </div>}
-
-        </Modal>
+        <Button variant="contained" onClick={this.secondaryClick} size='large' className={'lyrico-button secondary'}>{negativeButtonText}</Button>
+        <Button variant="contained" onClick={this.mainClick} size='large' className={'lyrico-button'}>{positiveButtonText}</Button>
+        <div className={`item counter`}>{`:${secondsLeft}`}</div>
       </div>
     )
   }

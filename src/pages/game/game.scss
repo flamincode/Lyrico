@@ -2,20 +2,15 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 4em;
 
   .lyric {
-    color: #ef233c;
+    color: #3372FF;
   }
 }
 
 .counter {
   margin-top: 1em;
   font-size: 4em;
-}
-
-.winning-modal {
-  background-color: green;
-  width: 80%;
-  height: 50%;
-  margin: 20% 10%;
+  color: #EA8F22;
 }

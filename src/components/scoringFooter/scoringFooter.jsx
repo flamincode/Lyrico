@@ -13,8 +13,8 @@ class ScoringFooter extends React.Component {
     const {teamOne, teamTwo, teamOneScore, teamTwoScore} = this.props.teams
     return (
       <div className='scoring-footer-container'>
-        <div>{`${teamOne} : ${teamOneScore}`}</div>
-        <div>{`${teamTwo}: ${teamTwoScore}`}</div>
+        <h2>{`${teamOne} : ${teamOneScore}`}</h2>
+        <h2>{`${teamTwo}: ${teamTwoScore}`}</h2>
       </div>
     )
   }

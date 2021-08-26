@@ -1,5 +1,6 @@
 import './App.scss'
 import { Switch, Route} from 'react-router-dom'
+import Heading from './components/heading/heading'
 import WelcomePage from './pages/welcome/welcome'
 import TeamsPage from './pages/teams/teams'
 import PlayerSelectionPage from './pages/playerSelection/playerSelection'
@@ -14,7 +15,7 @@ class App extends React.Component {
       teams: {
         teamOne: 'Team One',
         teamTwo: 'Team Two',
-        teamTwoActive: true,
+        teamOneActive: true,
         teamTwoActive: false,
         teamOneScore: 0,
         teamTwoScore: 0
@@ -47,12 +48,26 @@ class App extends React.Component {
     e.preventDefault()
   }
 
-  addScore() {
-    let {teamOneActive, teamTwoActive, teamOneScore, teamTwoScore} = this.state
+  addScore(n) {
+    let {teamOneActive, teamOneScore, teamTwoScore} = this.state.teams
     if (teamOneActive) {
-      //addscore to 1
+      this.setState(prevState => ({
+        teams: {
+          ...prevState.teams,
+          teamOneScore: (teamOneScore + n),
+          teamOneActive: false,
+          teamTwoActive: true
+        }
+      }))
     } else {
-      //addScore tp 2
+      this.setState(prevState => ({
+        teams: {
+          ...prevState.teams,
+          teamTwoScore: (teamTwoScore + n),
+          teamOneActive: true,
+          teamTwoActive: false
+        }
+      }))
     }
   }
   
@@ -60,25 +75,30 @@ class App extends React.Component {
     const teams = this.state.teams
     return (
       <div className="App">
-        <Switch>
-          <Route exact path='/' component={WelcomePage}></Route>
-          <Route exact path='/teams' 
-            render={(props) => (
-              <TeamsPage teams={teams} 
-                handleChangeTeamOne={(e) => this.handleChangeTeamOne(e)}
-                handleChangeTeamTwo={(e) => this.handleChangeTeamTwo(e)} />
-            )}>
-          </Route>
-          <Route exact path='/playerSelection' component={PlayerSelectionPage}></Route>
-          <Route exact path='/game'
-            render={(props) => (
-              <GamePage teams={teams}
-                addScore={this.addScore} 
-                history={props.history}/>
-            )}>
-          </Route>
-
-        </Switch>
+        <Heading />
+        <div className={'app-content'}>
+          <Switch>
+            <Route exact path='/' component={WelcomePage}></Route>
+            <Route exact path='/teams' 
+              render={(props) => (
+                <TeamsPage teams={teams} 
+                  handleChangeTeamOne={(e) => this.handleChangeTeamOne(e)}
+                  handleChangeTeamTwo={(e) => this.handleChangeTeamTwo(e)} />
+              )}></Route>
+            <Route exact path='/playerSelection' 
+              render={(props) => (
+                <PlayerSelectionPage teams={teams} />
+              )}>
+            </Route>
+            <Route exact path='/game'
+              render={(props) => (
+                <GamePage teams={teams}
+                  addScore={this.addScore} 
+                  history={props.history}/>
+              )}>
+            </Route>
+          </Switch>
+        </div>
         <ScoringFooter teams={teams}/>
       </div>
     )

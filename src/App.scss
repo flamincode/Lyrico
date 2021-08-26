@@ -5,6 +5,9 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  .app-content {
+    margin-top: 10%;
+  }
 }
 
 .App-logo {
@@ -41,3 +44,20 @@
     transform: rotate(360deg);
   }
 }
+
+button.lyrico-button {
+  padding: 1em 4em;
+  background-color: #3372FF;
+  color: #fff;
+  margin: 10px;
+  &:hover {
+    background-color: #1F4CB0
+  }
+  &.secondary {
+    background-color: #EA8F22;
+    &:hover {
+      background-color: #D4821F
+    }
+  }
+}
+
