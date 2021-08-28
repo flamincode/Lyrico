@@ -5,6 +5,7 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom'
 import './game.scss'
+import Title from '../../components/title'
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -17,42 +18,48 @@ class GamePage extends React.Component {
       year: '',
       number: '',
       lyric: '',
-      secondsLeft: 0,
       timerShow: false,
       positiveButtonText: 'Start Time!',
       negativeButtonText: 'New Song',
       gameStep: 0,
     }
+    
     this.timer = 0
     this.startTimer = this.startTimer.bind(this)
     this.countDown = this.countDown.bind(this)
     this.generateSong = this.generateSong.bind(this)
+    this.newSong = this.newSong.bind(this)
     this.mainClick = this.mainClick.bind(this)
     this.endRound = this.endRound.bind(this)
     this.secondaryClick = this.secondaryClick.bind(this)
   }
 
   componentDidMount() {
-    this.generateSong()
+    this.newSong()
+  }
+
+  async newSong() {
+    const result = await this.generateSong()
+    this.setState({...result})
   }
 
   generateSong() {
-    var Song = Songs[Math.floor(Math.random()*Songs.length)];
-    let {artist, song, seconds, year, number, lyric} = Song
-    this.setState({...Song, secondsLeft: seconds})
+    return new Promise((resolve, reject) => {
+      const Song = Songs[Math.floor(Math.random()*Songs.length)]
+      resolve(Song)
+    })
   }
 
   startTimer() {
-    console.log(this.state.secondsLeft)
-    if (this.timer == 0 && this.state.secondsLeft > 0) {
+    if (this.timer == 0 && this.state.seconds > 0) {
       this.setState({timerShow: true})
       this.timer = setInterval(this.countDown, 1000)
     }
   }
 
   countDown() {
-    let seconds = this.state.secondsLeft - 1
-    this.setState({secondsLeft: seconds})
+    let seconds = this.state.seconds - 1
+    this.setState({seconds: seconds})
 
     if (seconds == 0) {
       clearInterval(this.timer)
@@ -83,7 +90,7 @@ class GamePage extends React.Component {
   secondaryClick() {
     switch(this.state.gameStep) {
       case 0:
-        this.generateSong()
+        this.newSong()
         break
       case 1:
         this.setState({
@@ -101,10 +108,10 @@ class GamePage extends React.Component {
   }
 
   render() {
-    let {artist, song, seconds, year, number, lyric, timerShow, secondsLeft, positiveButtonText, negativeButtonText, modalOpen} = this.state
+    let {artist, song, seconds, year, number, lyric, timerShow, positiveButtonText, negativeButtonText, modalOpen} = this.state
     return (
       <div>
-        {/* <div>{this.generateSong()}</div> */}
+        <Title title={song} />
         <div className='song-container'>
           <h1 className='item song'>{song}</h1>
           <h2 className='item side artist'>{`by ${artist}, ${year}`}</h2>
@@ -112,7 +119,7 @@ class GamePage extends React.Component {
         </div>
         <Button variant="contained" onClick={this.secondaryClick} size='large' className={'lyrico-button secondary'}>{negativeButtonText}</Button>
         <Button variant="contained" onClick={this.mainClick} size='large' className={'lyrico-button'}>{positiveButtonText}</Button>
-        <div className={`item counter`}>{`:${secondsLeft}`}</div>
+        <div className={`item counter`}>{`:${seconds}`}</div>
       </div>
     )
   }

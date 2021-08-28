@@ -28,7 +28,6 @@ class App extends React.Component {
   }
 
   handleChangeTeamOne(e) {
-    console.log(e)
     this.setState(prevState => ({
       teams: {
         ...prevState.teams,
