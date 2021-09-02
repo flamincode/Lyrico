@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
 import './heading.scss'
-import image from '../../logo.png'
+import image from '../../logo.jpg'
 
 const Heading = () => {
   const history = useHistory()

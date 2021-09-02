@@ -7,6 +7,7 @@ import PlayerSelectionPage from './pages/playerSelection/playerSelection'
 import ScoringFooter from './components/scoringFooter/scoringFooter'
 import GamePage from './pages/game/game'
 import React from 'react'
+// import 'semantic-ui-css/semantic.min.css'
 
 class App extends React.Component {
   constructor() {

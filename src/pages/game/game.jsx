@@ -1,11 +1,9 @@
 import React from 'react'
 import { Songs } from '../../songs'
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
-import { withRouter } from 'react-router-dom'
 import './game.scss'
 import Title from '../../components/title'
+import Lmodal from '../../components/modal/modal'
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -22,6 +20,10 @@ class GamePage extends React.Component {
       positiveButtonText: 'Start Time!',
       negativeButtonText: 'New Song',
       gameStep: 0,
+      modalOpen: false,
+      modalHeader: '',
+      modalDescription: '',
+      modalLink: ''
     }
     
     this.timer = 0
@@ -32,6 +34,8 @@ class GamePage extends React.Component {
     this.mainClick = this.mainClick.bind(this)
     this.endRound = this.endRound.bind(this)
     this.secondaryClick = this.secondaryClick.bind(this)
+    this.openModal = this.openModal.bind(this)
+    this.modalButtonClick = this.modalButtonClick.bind(this)
   }
 
   componentDidMount() {
@@ -82,7 +86,7 @@ class GamePage extends React.Component {
           gameStep: 0,
         })
         clearInterval(this.timer)
-        this.endRound(2)
+        this.endRound('success')
         break
     }
   }
@@ -97,18 +101,41 @@ class GamePage extends React.Component {
           gameStep: 0,
         })
         clearInterval(this.timer)
-        this.endRound(0)
+        this.endRound('failure')
         break
     }
   }
 
-  endRound(n) {
+  openModal(b) {
+    this.setState({modalOpen: b})
+    if (!b) {
+      this.props.history.push('/PlayerSelection')
+    }
+  }
+
+  endRound(result) {
+    let {teamOne, teamTwo, teamOneActive} = this.props.teams
+    if (result === 'success') {
+      this.setState({
+        modalHeader: `Congrats ${teamOneActive ? teamOne : teamTwo}!`,
+        modalDescription: `You guessed "${this.state.lyric}", you must really know ${this.state.artist}.`,
+      })  
+      this.props.addScore(2)
+    } else {
+      this.setState({
+        modalHeader: `Hey ${teamOneActive ? teamOne : teamTwo}, you'll get them next time.`,
+      })  
+      this.props.addScore(0)
+    }
+    this.openModal(true)
+  }
+
+  modalButtonClick() {
     this.props.history.push('/PlayerSelection')
-    this.props.addScore(n)
   }
 
   render() {
-    let {artist, song, seconds, year, number, lyric, timerShow, positiveButtonText, negativeButtonText, modalOpen} = this.state
+    let {artist, song, seconds, year, number, lyric, timerShow, positiveButtonText, negativeButtonText, modalOpen, modalHeader, modalDescription, modalLink} = this.state
     return (
       <div>
         <Title title={song} />
@@ -120,6 +147,14 @@ class GamePage extends React.Component {
         <Button variant="contained" onClick={this.secondaryClick} size='large' className={'lyrico-button secondary'}>{negativeButtonText}</Button>
         <Button variant="contained" onClick={this.mainClick} size='large' className={'lyrico-button'}>{positiveButtonText}</Button>
         <div className={`item counter`}>{`:${seconds}`}</div>
+        <Lmodal openModal={this.openModal}
+          modalOpen={modalOpen}
+          modalHeader={modalHeader}
+          modalDescription={modalDescription}
+          song={song}
+          link={modalLink}
+          handleClick={this.modalButtonClick}
+        />
       </div>
     )
   }

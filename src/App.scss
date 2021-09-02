@@ -8,6 +8,20 @@
   .app-content {
     margin-top: 10%;
   }
+
+  // semantic overrides
+  h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child {
+    margin-top: auto;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    line-height: auto;
+    margin: auto;
+    font-weight: auto;
+    padding: auto;
+  }
+  
 }
 
 .App-logo {
@@ -60,4 +74,3 @@ button.lyrico-button {
     }
   }
 }
-
