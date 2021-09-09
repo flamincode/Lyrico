@@ -19,13 +19,25 @@ class App extends React.Component {
         teamOneActive: true,
         teamTwoActive: false,
         teamOneScore: 0,
-        teamTwoScore: 0
+        teamTwoScore: 0,
+        apiResponse: ''
       }
     }
 
     this.handleChangeTeamOne = this.handleChangeTeamOne.bind(this)
     this.handleChangeTeamTwo = this.handleChangeTeamTwo.bind(this)
     this.addScore = this.addScore.bind(this)
+  }
+
+  componentDidMount () {
+    this.callAPI()
+  }
+
+  callAPI() {
+    fetch('http://localhost:9000/testAPI')
+        .then(res => res.text())
+        .then(res => this.setState({ apiResponse: res }))
+        .catch(err => err)
   }
 
   handleChangeTeamOne(e) {
@@ -75,6 +87,7 @@ class App extends React.Component {
     const teams = this.state.teams
     return (
       <div className="App">
+        <div>{this.state.apiResponse}</div>
         <Heading />
         <div className={'app-content'}>
           <Switch>
