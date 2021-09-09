@@ -13,6 +13,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      data: {},
       teams: {
         teamOne: 'Team One',
         teamTwo: 'Team Two',
@@ -26,7 +27,25 @@ class App extends React.Component {
     this.handleChangeTeamOne = this.handleChangeTeamOne.bind(this)
     this.handleChangeTeamTwo = this.handleChangeTeamTwo.bind(this)
     this.addScore = this.addScore.bind(this)
+    this.callBackendAPI = this.callBackendAPI.bind(this)
   }
+
+  componentDidMount() {
+    this.callBackendAPI()
+      .then(res => this.setState({ data: res.express }))
+      .catch(err => console.log(err));
+  }
+
+  callBackendAPI = async () => {
+    console.log('hello')
+    const response = await fetch('/express_backend');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body;
+  };
 
   handleChangeTeamOne(e) {
     this.setState(prevState => ({
