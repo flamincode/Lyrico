@@ -4,4 +4,13 @@
   justify-content: space-between;
   margin-top: auto;
   margin-bottom: 30px;
+
+  .active-border { 
+    border: 2px dotted #3372FF;
+    padding: 10px;
+  }
+
+  .inactive-border {
+    padding: 12px;
+  }
 }
