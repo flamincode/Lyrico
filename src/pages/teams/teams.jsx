@@ -9,8 +9,9 @@ const TeamsPage = (props) => {
   const [teamTwoShow, setTeamTwoShow] = useState(false)
 
   function handleSubmitTeam(e) {
-    setTeamOneShow(!teamOneShow)
-    setTeamTwoShow(!teamTwoShow)
+    console.log(props.teamOneActive)
+    let newTeam = props.teamOneActive ? 2 : 1 
+    props.changeActiveTeam(newTeam)
     e.preventDefault()
   }
 
@@ -26,7 +27,7 @@ const TeamsPage = (props) => {
   
   return (
     <div>
-      <div className={!teamOneShow ? 'hide' : ''}>
+      <div className={!props.teamOneActive ? 'hide' : ''}>
         <form onSubmit={(e) => handleSubmitTeam(e)}>
           <Grid container spacing={10}>
             <Grid item xs={12}>
@@ -41,7 +42,7 @@ const TeamsPage = (props) => {
           </Grid>
         </form>
       </div>
-      <div className={!teamTwoShow ? 'hide' : ''}>
+      <div className={props.teamOneActive ? 'hide' : ''}>
         <form onSubmit={(e) => handleSubmitTeam(e)}>
           <Grid container spacing={10}>
             <Grid item xs={12}>

@@ -25,6 +25,7 @@ class App extends React.Component {
 
     this.handleChangeTeamOne = this.handleChangeTeamOne.bind(this)
     this.handleChangeTeamTwo = this.handleChangeTeamTwo.bind(this)
+    this.changeActiveTeam = this.changeActiveTeam.bind(this)
     this.addScore = this.addScore.bind(this)
   }
 
@@ -46,6 +47,27 @@ class App extends React.Component {
       }
     }))
     e.preventDefault()
+  }
+
+  changeActiveTeam(newActiveTeam) {
+    console.log(newActiveTeam)
+    if (newActiveTeam === 1) {
+      this.setState(prevState => ({
+        teams: {
+          ...prevState.teams,
+          teamOneActive: true,
+          teamTwoActive: false
+        }
+      }))
+    } else {
+      this.setState(prevState => ({
+        teams: {
+          ...prevState.teams,
+          teamOneActive: false,
+          teamTwoActive: true
+        }
+      }))
+    }
   }
 
   addScore(n) {
@@ -83,7 +105,9 @@ class App extends React.Component {
               render={(props) => (
                 <TeamsPage teams={teams} 
                   handleChangeTeamOne={(e) => this.handleChangeTeamOne(e)}
-                  handleChangeTeamTwo={(e) => this.handleChangeTeamTwo(e)} />
+                  handleChangeTeamTwo={(e) => this.handleChangeTeamTwo(e)}
+                  changeActiveTeam={this.changeActiveTeam}
+                  teamOneActive={teams.teamOneActive} />
               )}></Route>
             <Route exact path='/playerSelection' 
               render={(props) => (
