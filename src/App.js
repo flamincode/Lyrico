@@ -1,5 +1,5 @@
 import './App.scss'
-import { Switch, Route} from 'react-router-dom'
+import { Switch, Route, useHistory} from 'react-router-dom'
 import Heading from './components/heading/heading'
 import WelcomePage from './pages/welcome/welcome'
 import TeamsPage from './pages/teams/teams'
