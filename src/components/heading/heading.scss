@@ -1,13 +1,16 @@
-.logo { 
-  text-align: left;
-  margin-top: 20px;
-  position: absolute;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  
-  img {
-    width: 50px;
-    height: 50px;
+.header {
+  display: flex;
+  .logo { 
+    text-align: left;
+    // margin-top: 20px;
+    // position: absolute;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    
+    img {
+      width: 50px;
+      height: 50px;
+    }
   }
 }

@@ -1,20 +1,21 @@
-.song-container {
+.game-page {
+  height: 100%;
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
-  justify-content: center;
-  margin-bottom: 2em;
+  .game-content {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 
-  .lyric {
-    color: #3372FF;
+    .lyric {
+      color: #3372FF;
+    }
+
+    .counter {
+      font-size: 4em;
+      color: #000;
+    }
   }
-
-  .item {
-    margin: 1em
-  }
-}
-
-.counter {
-  margin-top: 1em;
-  font-size: 4em;
-  color: #000;
 }

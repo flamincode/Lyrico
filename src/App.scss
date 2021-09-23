@@ -1,23 +1,34 @@
 .App {
   text-align: center;
-  max-width: 1000px;
+  max-width: 1150px;
   margin: auto;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  .app-content {
-    margin-top: 20%;
+  height: 100vh;
+  .header {
+    flex: 1;
   }
+  .app-content {
+    // margin-top: 20%;
+    flex: 9;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  .footer {
+    flex: 1;
+  }
+
 
   // semantic overrides
   h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child {
-    margin-top: auto;
+    margin-top: unset;
   }
 
   h1, h2, h3, h4, h5 {
     font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
     line-height: auto;
-    margin: auto;
+    margin: unset;
     font-weight: auto;
     padding: auto;
   }

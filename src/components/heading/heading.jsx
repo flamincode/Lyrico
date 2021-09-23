@@ -10,7 +10,9 @@ const Heading = () => {
     history.push('/')
   }
   return (
-    <button className={'logo'} onClick={handleClick}><img alt='' src={image}/></button>
+    <div className='header'>
+      <button className={'logo'} onClick={handleClick}><img alt='' src={image}/></button>
+    </div>
   )
 }
 export default Heading

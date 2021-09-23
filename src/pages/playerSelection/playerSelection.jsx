@@ -8,16 +8,15 @@ const PlayerSelection = (props) => {
 
   let {teamOneActive, teamOne, teamTwo} = props.teams
   return (
-    <div>
-      <Grid container>
-        <Grid xs={12}>
-          <h1>{`${teamOneActive ? teamOne : teamTwo} choose a player for the round!`}</h1>
-          <h3 className={'ps-h3'}>Only the selected player should be able to see the next screen. Make sure no one is looking before you click the button.</h3>
-        </Grid>
-        <Grid xs={12}>
-          <Link to='/game'><Button className={`lyrico-button ps-btn`} variant="contained">Show Song</Button></Link>
-        </Grid>
-      </Grid>
+    <div className='ps-page'>
+      <div className='ps-content'>
+        <h1>{`${teamOneActive ? teamOne : teamTwo} choose a player for the round!`}</h1>
+        <div>
+          <h3>Only the selected player should be able to see the next screen.</h3>
+          <h3>Make sure no one is looking before you click the button.</h3>
+        </div>
+        <Link to='/game'><Button className='lyrico-button' variant="contained">Show Song</Button></Link>
+      </div>
     </div>
   )
 

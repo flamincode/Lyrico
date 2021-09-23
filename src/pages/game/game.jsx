@@ -118,7 +118,7 @@ class GamePage extends React.Component {
     if (result === 'success') {
       this.setState({
         modalHeader: `Congrats ${teamOneActive ? teamOne : teamTwo}!`,
-        modalDescription: `You guessed "${this.state.lyric}", you must really know ${this.state.artist}.`,
+        modalDescription: `You guessed "${this.state.lyric}"!`,
       })  
       this.props.addScore(2)
     } else {
@@ -137,24 +137,26 @@ class GamePage extends React.Component {
   render() {
     let {artist, song, seconds, year, number, lyric, timerShow, positiveButtonText, negativeButtonText, modalOpen, modalHeader, modalDescription, modalLink} = this.state
     return (
-      <div>
+      <div className='game-page'>
         <Title title={song} />
-        <div className='song-container'>
+        <div className='game-content'>
           <h1 className='item song'>{song}</h1>
           <h2 className='item side artist'>{`by ${artist}, ${year}`}</h2>
           <h1 className='item lyric'>{`"${lyric}"`}</h1>
+          <div>
+            <Button variant="contained" onClick={this.secondaryClick} size='large' className={'lyrico-button secondary'}>{negativeButtonText}</Button>
+            <Button variant="contained" onClick={this.mainClick} size='large' className={'lyrico-button'}>{positiveButtonText}</Button>
+          </div>
+          <div className={`item counter`}>{`:${seconds}`}</div>
+          <Lmodal openModal={this.openModal}
+            modalOpen={modalOpen}
+            modalHeader={modalHeader}
+            modalDescription={modalDescription}
+            song={song}
+            link={modalLink}
+            handleClick={this.modalButtonClick}
+          />
         </div>
-        <Button variant="contained" onClick={this.secondaryClick} size='large' className={'lyrico-button secondary'}>{negativeButtonText}</Button>
-        <Button variant="contained" onClick={this.mainClick} size='large' className={'lyrico-button'}>{positiveButtonText}</Button>
-        <div className={`item counter`}>{`:${seconds}`}</div>
-        <Lmodal openModal={this.openModal}
-          modalOpen={modalOpen}
-          modalHeader={modalHeader}
-          modalDescription={modalDescription}
-          song={song}
-          link={modalLink}
-          handleClick={this.modalButtonClick}
-        />
       </div>
     )
   }

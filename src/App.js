@@ -3,6 +3,7 @@ import { Switch, Route} from 'react-router-dom'
 import Heading from './components/heading/heading'
 import WelcomePage from './pages/welcome/welcome'
 import TeamsPage from './pages/teams/teams'
+import RulesPage from './pages/rules/rules'
 import PlayerSelectionPage from './pages/playerSelection/playerSelection'
 import ScoringFooter from './components/scoringFooter/scoringFooter'
 import GamePage from './pages/game/game'
@@ -101,6 +102,7 @@ class App extends React.Component {
         <div className={'app-content'}>
           <Switch>
             <Route exact path='/' component={WelcomePage}></Route>
+            <Route exact path='/rules' component={RulesPage}></Route>
             <Route exact path='/teams' 
               render={(props) => (
                 <TeamsPage teams={teams} 

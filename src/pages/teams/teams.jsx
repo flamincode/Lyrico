@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom'
+import './teams.scss'
 
 const TeamsPage = (props) => {
   const [teamOneShow, setTeamOneShow] = useState(true)
@@ -26,37 +26,17 @@ const TeamsPage = (props) => {
   const {teamOne, teamTwo} = props.teams
   
   return (
-    <div>
-      <div className={!props.teamOneActive ? 'hide' : ''}>
-        <form onSubmit={(e) => handleSubmitTeam(e)}>
-          <Grid container spacing={10}>
-            <Grid item xs={12}>
-              <h1>Team One please enter your name</h1>
-            </Grid>
-              <Grid item xs={12}>
-                <TextField id="standard-basic" value={teamOne} label="Team One" onChange={(e) => handleChangeTeamOne(e)}/>
-              </Grid>
-              <Grid item xs={12}>
-                <Button variant="contained" type="submit" className={'lyrico-button'}>Submit</Button>
-              </Grid>
-          </Grid>
-        </form>
-      </div>
-      <div className={props.teamOneActive ? 'hide' : ''}>
-        <form onSubmit={(e) => handleSubmitTeam(e)}>
-          <Grid container spacing={10}>
-            <Grid item xs={12}>
-              <h1>Team Two please enter your name</h1>
-            </Grid>
-              <Grid item xs={12}>
-                <TextField id="standard-basic" value={teamTwo} label="Team Two" onChange={(e) => handleChangeTeamTwo(e)}/>
-              </Grid>
-              <Grid item xs={12}>
-                <Link to="/PlayerSelection"><Button variant="contained" type="submit" className={'lyrico-button'}>Create Team</Button></Link>
-              </Grid>
-          </Grid>
-        </form>
-      </div>
+    <div className='teams-page'>
+      <form className={!props.teamOneActive ? 'hide' : 'teams-content'} onSubmit={(e) => handleSubmitTeam(e)}>
+            <h1>Team One please enter your name</h1>
+              <TextField id="standard-basic" value={teamOne} label="Team One" onChange={(e) => handleChangeTeamOne(e)}/>
+              <Button variant="contained" type="submit" className={'lyrico-button'}>Submit</Button>
+      </form>
+      <form className={props.teamOneActive ? 'hide' : 'teams-content'} onSubmit={(e) => handleSubmitTeam(e)}>
+            <h1>Team Two please enter your name</h1>
+              <TextField id="standard-basic" value={teamTwo} label="Team Two" onChange={(e) => handleChangeTeamTwo(e)}/>
+              <Link to="/PlayerSelection"><Button variant="contained" type="submit" className={'lyrico-button'}>Create Team</Button></Link>
+      </form>
     </div>
   )
 }

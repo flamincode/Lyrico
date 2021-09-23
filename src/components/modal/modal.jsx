@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { Modal } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 import Button from '@material-ui/core/Button';
+import './modal.scss'
 
 const Lmodal = (props) => {
   const {openModal, modalOpen, modalDescription, modalHeader, song, link, handleClick} = props
@@ -10,6 +11,8 @@ const Lmodal = (props) => {
       onClose={() => openModal(false)}
       onOpen={() => openModal(true)}
       open={modalOpen}
+      className='lyrico-modal'
+      size={'mini'}
     >
       <Modal.Header>{modalHeader}</Modal.Header>
       <Modal.Content>
