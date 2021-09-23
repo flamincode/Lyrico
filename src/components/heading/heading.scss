@@ -1,4 +1,4 @@
-.header {
+.lyrico-header {
   display: flex;
   .logo { 
     text-align: left;
@@ -11,6 +11,23 @@
     img {
       width: 50px;
       height: 50px;
+    }
+  }
+
+  .ui.dropdown {
+    .item {
+      font-size: 1.5em;
+      color: black;
+      padding: 5px;
+
+      &:hover {
+        background-color: #EA8F22;
+        
+      }
+    }
+
+    i.dropdown.icon {
+      display: none;
     }
   }
 }
