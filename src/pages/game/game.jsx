@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import './game.scss'
 import Title from '../../components/title'
 import Lmodal from '../../components/modal/modal'
+import buzzer from '../../sfx/basketball-buzzer.wav'
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -66,6 +67,8 @@ class GamePage extends React.Component {
     this.setState({seconds: seconds})
 
     if (seconds == 0) {
+      let audio = new Audio(buzzer)
+      audio.play()
       clearInterval(this.timer)
       this.endRound(0)
     }
